@@ -3,7 +3,7 @@
 class Player {
 public: 
   int x, y;
-  int speed, dY;
+  int speed, jumpSpeed, dY;
   int g;
   int width;
   int height;

@@ -13,6 +13,7 @@ Player::Player(int x_cor=1024/2, int y_cor=768/2) {
   //gravity
   g = 1;
   speed = 7;
+  jumpSpeed = 12;
   dY=0;
   fallFrame=0;
   jumping = false;
@@ -78,7 +79,7 @@ void Player::fall() {
     fallFrame += 1;
   dY = int(0.5 * g * fallFrame); //maybe + 0.5
   if (jumping) {
-    dY -= speed;
+    dY -= jumpSpeed;
   }
   move(0, dY);
 }
