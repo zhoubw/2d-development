@@ -22,6 +22,7 @@ int main()
   //KEYS
   bool left = false;
   bool right = false;
+  bool space = false;
   
   // window.setView(camera.mainView);
 
@@ -41,6 +42,11 @@ int main()
       }
       else
 	right = false;
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+	space = true;
+      }
+      else
+	space = false;
       
 
       //handles events
@@ -62,9 +68,11 @@ int main()
 
 	//key response
 	if (left == true)
-	  p.move(-7,0);
+	  p.move(p.speed*-1,0);
 	if (right == true)
-	  p.move (7,0);
+	  p.move (p.speed,0);
+	if (space == true)
+	  p.jump();
 
 	//misc.
 	p.fall();

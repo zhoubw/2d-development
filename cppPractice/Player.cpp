@@ -15,6 +15,7 @@ Player::Player(int x_cor=1024/2, int y_cor=768/2) {
   speed = 7;
   dY=0;
   fallFrame=0;
+  jumping = false;
   shape = sf::RectangleShape(sf::Vector2f(width,height));
   shape.setPosition(this->x,this->y);
   shape.setFillColor(sf::Color::Green);
@@ -48,7 +49,6 @@ void Player::move(int x, int y) {
   if (!isNegY) {
     while (delta_y < y) {
       //check obstacle
-      std::cout << this->y << " ";
       if (this->y + delta_y == 200) {
 	break;
       }
@@ -66,8 +66,10 @@ void Player::move(int x, int y) {
   }
   this->y += delta_y;
   //again, temporary.
-  if (delta_y != y)
+  if (delta_y != y) {
     fallFrame = 0;
+    jumping = false;
+  }
 }
 
 void Player::fall() {
@@ -75,5 +77,12 @@ void Player::fall() {
   if (y != 200 + height/2)
     fallFrame += 1;
   dY = int(0.5 * g * fallFrame); //maybe + 0.5
+  if (jumping) {
+    dY -= speed;
+  }
   move(0, dY);
+}
+
+void Player::jump() {
+    jumping = true;
 }
