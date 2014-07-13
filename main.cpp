@@ -8,7 +8,7 @@ int main()
 {
   Camera camera;
   Player p(0,0);
-  sf::RenderWindow window(sf::VideoMode(1024, 768), "Title goes here");
+  sf::RenderWindow window(sf::VideoMode(camera.dim_x, camera.dim_y), "Title goes here");
   //sf::CircleShape shape(100.f);
   //shape.setFillColor(sf::Color::Green);
 

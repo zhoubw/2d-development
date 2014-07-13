@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include "Player.hpp"
+#include "MapGrid.hpp"
 #include <iostream>
 #include <sstream>
 
@@ -11,9 +12,9 @@ Player::Player(int x_cor=1024/2, int y_cor=768/2) {
   this->y = y_cor-(this->height/2);
   //let the floor = 200
   //gravity
-  g = 1;
+  g = 3;
   speed = 7;
-  jumpSpeed = 12;
+  jumpSpeed = 25;
   dY=0;
   fallFrame=0;
   jumping = false;
@@ -74,7 +75,7 @@ void Player::move(int x, int y) {
 }
 
 void Player::fall() {
-  //if not landed or !landed()
+  //if not landed or !grounded()
   if (y != 200 + height/2)
     fallFrame += 1;
   dY = int(0.5 * g * fallFrame); //maybe + 0.5
@@ -86,4 +87,15 @@ void Player::fall() {
 
 void Player::jump() {
     jumping = true;
+}
+
+bool Player::grounded() {
+  //returns true if standing on block
+  //convert the point on the block to the partition coordinate.
+  int xBox = (x - (x % MapGrid::boxSize))/MapGrid::boxSize;
+  int yBox = (((y+this->height/2)+1) - ((y+this->height/2+1) % MapGrid::boxSize))/MapGrid::boxSize;
+  if (MapGrid::map[xBox][yBox] > 0)
+    return true;
+  return false;
+  
 }

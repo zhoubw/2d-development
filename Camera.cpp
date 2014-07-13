@@ -12,12 +12,16 @@ public:
   sf::Sprite map;
   sf::FloatRect rectangle;
   sf::View mainView;
+  int dim_x;
+  int dim_y;
   Camera() {
     texMap.loadFromFile("maptest.jpg");
     map.setTexture(texMap);
+    dim_x = 1280;
+    dim_y = 720;
     //new(&rectangle) sf::FloatRect(0,0,512,384);
     //new(&mainView) sf::View(rectangle);
-    rectangle = sf::FloatRect(0,0,512,384);
+    rectangle = sf::FloatRect(0,0,dim_x/2,dim_y/2);
     mainView = sf::View(rectangle);
   }
   

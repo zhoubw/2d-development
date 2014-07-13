@@ -9,11 +9,15 @@ public:
   int height;
   int fallFrame;
   bool jumping;
-
+  
+  sf::Texture texture;
+  //temp
   sf::RectangleShape shape;
+  sf::Sprite sprite;
 
   void move(int x,int y);
   void fall();
   void jump();
+  bool grounded();
   Player(int,int);
 };
