@@ -6,8 +6,8 @@
 #include <sstream>
 
 Player::Player(int x_cor=1024/2, int y_cor=768/2) {
-  width=48;
-  height=64;
+  this->width=48;
+  this->height=64;
   this->x = x_cor-(this->width/2);
   this->y = y_cor-(this->height/2);
   //let the floor = 200
@@ -91,10 +91,11 @@ void Player::jump() {
 
 bool Player::grounded() {
   //returns true if standing on block
+  //WARNING: ONLY CALL WHEN FALLING
   //convert the point on the block to the partition coordinate.
-  int xBox = (x - (x % MapGrid::boxSize))/MapGrid::boxSize;
-  int yBox = (((y+this->height/2)+1) - ((y+this->height/2+1) % MapGrid::boxSize))/MapGrid::boxSize;
-  if (MapGrid::map[xBox][yBox] > 0)
+  int xBox = (x - (x % boxSize))/boxSize;
+  int yBox = (((y+this->height/2)+1) - ((y+this->height/2+1) % boxSize))/boxSize;
+  if (map[xBox][yBox] > 0)
     return true;
   return false;
   
