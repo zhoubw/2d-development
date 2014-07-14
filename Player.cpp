@@ -92,6 +92,7 @@ void Player::jump() {
 bool Player::grounded() {
   //returns true if standing on block
   //WARNING: ONLY CALL WHEN FALLING
+  //possible fix: check the point right on top of this one, it should not be in a block
   //convert the point on the block to the partition coordinate.
   int xBox = (x - (x % boxSize))/boxSize;
   int yBox = (((y+this->height/2)+1) - ((y+this->height/2+1) % boxSize))/boxSize;
