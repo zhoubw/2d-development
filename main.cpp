@@ -3,15 +3,17 @@
 #include <iostream>
 #include "Player.hpp"
 #include "Camera.cpp"
-
+#include "MapGrid.hpp"
 int main()
 {
   Camera camera;
   Player p(0,0);
   sf::RenderWindow window(sf::VideoMode(camera.dim_x, camera.dim_y), "Title goes here");
+
   //sf::CircleShape shape(100.f);
   //shape.setFillColor(sf::Color::Green);
-
+  fill200();
+  //printBlockSprites();
   sf::Clock clock;
   sf::Time frameGap = sf::milliseconds(1000/60);
   int totalFrame = 0;
@@ -62,6 +64,8 @@ int main()
 
       //*****if one frame completes
       if (clock.getElapsedTime() >= frameGap) {
+	//test*******erase later
+	std::cout << "Frame " << totalFrame << std::endl;
 	//timer reset
 	clock.restart();
 	totalFrame++;
@@ -81,7 +85,7 @@ int main()
 	window.clear();
 
 	//draws new stuff	
-	camera.mainView.setCenter(p.x+(p.width/2),p.y+(p.height/2));
+	camera.mainView.setCenter(p.x,p.y);
 	window.setView(camera.mainView);
 	//window.draw(p.currentSprite);
 	window.draw(camera.map);

@@ -1,4 +1,19 @@
 //Header file for MapGrid
 
+//void fillMapA();
+//void drawMapA(sf::RenderWindow window);
 extern const int boxSize;
-extern int map[80][45];
+extern const int w;
+extern const int h;
+
+//extern bool map[80][45];
+
+//extern std::vector<std::vector<sf::Sprite> > blockSprites;
+//extern sf::Sprite* bSArray[constW][constH];
+
+extern sf::Sprite blockSprites[80][45];
+
+extern sf::Sprite blockSprite;
+
+extern void fill200();
+extern void printBlockSprites();
