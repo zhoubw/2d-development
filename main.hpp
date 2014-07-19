@@ -1,0 +1,1 @@
+extern sf::RenderWindow window;

@@ -4,15 +4,18 @@
 #include "Player.hpp"
 #include "Camera.cpp"
 #include "MapGrid.hpp"
+#include "main.hpp"
+
+sf::RenderWindow window(sf::VideoMode(w, h), "Title goes here");
 int main()
 {
   Camera camera;
   Player p(0,0);
-  sf::RenderWindow window(sf::VideoMode(camera.dim_x, camera.dim_y), "Title goes here");
+  //window.create( sf::VideoMode(camera.dim_x, camera.dim_y, "Title goes here") );
+  //sf::RenderWindow window(sf::VideoMode(camera.dim_x, camera.dim_y), "Title goes here");
 
   //sf::CircleShape shape(100.f);
   //shape.setFillColor(sf::Color::Green);
-  fill200();
   //printBlockSprites();
   sf::Clock clock;
   sf::Time frameGap = sf::milliseconds(1000/60);
@@ -61,7 +64,7 @@ int main()
 	  break;
 	}
       }
-
+      
       //*****if one frame completes
       if (clock.getElapsedTime() >= frameGap) {
 	//test*******erase later
@@ -69,7 +72,7 @@ int main()
 	//timer reset
 	clock.restart();
 	totalFrame++;
-
+	
 	//key response
 	if (left == true)
 	  p.move(p.speed*-1,0);
@@ -89,6 +92,7 @@ int main()
 	window.setView(camera.mainView);
 	//window.draw(p.currentSprite);
 	window.draw(camera.map);
+	fill200();
 	window.draw(p.shape); 
 	
 	//display new stuff

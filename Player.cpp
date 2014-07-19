@@ -99,10 +99,13 @@ bool Player::grounded() {
   //convert the point on the block to the partition coordinate (starts right under feet of character)
   int xBox = (x - (x % boxSize))/boxSize;
   int yBox = (((y+this->height/2)+1) - ((y+this->height/2+1) % boxSize))/boxSize;
-  std::cout << &blockSprites[xBox][yBox] << " " << &blockSprite << std::endl;
-  if (&blockSprites[xBox][yBox] == &blockSprite) {
+  //need to find a way to access the grid
+  //if (blockSprites[xBox][yBox] == &blockSprite) {
+  //return true;
+  //}
+  std::cout << "conversion " <<  xBox << " " << yBox << std::endl;
+  if (blockSprites[xBox][yBox].getTexture() == blockTexture) {
     return true;
   }
-  //return false;
-  return true;
+  return false;
 }
