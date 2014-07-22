@@ -21,7 +21,8 @@ public:
     dim_y = 720;
     //new(&rectangle) sf::FloatRect(0,0,512,384);
     //new(&mainView) sf::View(rectangle);
-    rectangle = sf::FloatRect(0,0,dim_x/2,dim_y/2);
+    //rectangle = sf::FloatRect(0,0,dim_x/2,dim_y/2);
+    rectangle = sf::FloatRect(0,0,dim_x,dim_y);
     mainView = sf::View(rectangle);
   }
   

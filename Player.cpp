@@ -15,6 +15,7 @@ Player::Player(int x_cor=1024/2, int y_cor=768/2) {
   g = 3;
   speed = 7;
   jumpSpeed = 25;
+  dX=0;
   dY=0;
   fallFrame=0;
   jumping = false;
@@ -28,15 +29,14 @@ void Player::move(int x, int y) {
   //moved so far per frame
   int delta_x = 0;
   int delta_y = 0;
-  bool isNegX = x<0;
-  bool isNegY = y<0;
-  
+
   //temp for shape
-  if (!isNegX) {
+  if (x>0) {
     while (delta_x < x) {
       //check obstacle
       this->shape.move(1,0);
       delta_x += 1;
+      this->x += 1;
     }  
   }
   else {
@@ -44,51 +44,57 @@ void Player::move(int x, int y) {
       //check obstacle
       this->shape.move(-1,0);
       delta_x -= 1;
+      this->x -= 1;
     }
   }
-  this->x += delta_x;
  
-  if (!isNegY) {
+  if (y>0) {
     while (delta_y < y) {
       //check obstacle
-      if (grounded()) {
-	break;
-      }
-      this->shape.move(0,1);
-      delta_y += 1;
+      //std::cout << (this->y+(this->height/2)+1)<< std::endl;
+	this->shape.move(0,1);
+	this->y += 1;
+	delta_y += 1;
+	if (grounded()) {
+	  jumping = false;
+	  break;
+	}
     }  
   }
   else {
     while (delta_y > y) {
       //check obstacle
       this->shape.move(0,-1);
+      this->y -= 1;
       delta_y -= 1;
     }
   }
-  this->y += delta_y;
-  //again, temporary.
-  if (grounded()) {
-    fallFrame = 0;
-    jumping = false;
-  }
+
 }
 
 void Player::fall() {
   //if not landed or !grounded()
-  if (!grounded())
-    fallFrame += 1;
-  dY = int(0.5 * g * fallFrame); //maybe + 0.5
-  if (jumping) {
-    dY -= jumpSpeed;
+  std::cout << (this->y+(this->height/2)+1)<< std::endl;
+  if (grounded()) {
+    fallFrame = 0;
+    dY = 0;
+    if (jumping) {
+      dY -= jumpSpeed;
+    }
   }
-  move(0, dY);
-  std::cout << "( " << x << ", " << y << " )" << std::endl;
-  std::cout << grounded() << std::endl;
+  else {
+    fallFrame += 1;
+    dY = int((0.5 * g * fallFrame) + 0.5);
+    if (jumping) {
+      dY -= jumpSpeed;
+    }
+  }
 }
 
 void Player::jump() {
-  if (grounded())
+  if (grounded()) {
     jumping = true;
+  }
 }
 
 bool Player::grounded() {
@@ -97,15 +103,19 @@ bool Player::grounded() {
   //possible fix: check the point right on top of this one, it should not be in a block
 
   //convert the point on the block to the partition coordinate (starts right under feet of character)
-  int xBox = (x - (x % boxSize))/boxSize;
-  int yBox = (((y+this->height/2)+1) - ((y+this->height/2+1) % boxSize))/boxSize;
+  int xBox = (this->x - (this->x % boxSize))/boxSize;
+  int yBox = ((this->y+(this->height/2)+1)-((this->y+(this->height/2)+1) % boxSize))/boxSize;
   //need to find a way to access the grid
   //if (blockSprites[xBox][yBox] == &blockSprite) {
   //return true;
   //}
-  std::cout << "conversion " <<  xBox << " " << yBox << std::endl;
+  //std::cout << "conversion " <<  xBox << " " << yBox << std::endl;
   if (blockSprites[xBox][yBox].getTexture() == blockTexture) {
     return true;
   }
   return false;
+}
+
+void Player::step() {
+  move(dX, dY);
 }

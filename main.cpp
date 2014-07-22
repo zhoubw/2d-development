@@ -28,6 +28,9 @@ int main()
   bool left = false;
   bool right = false;
   bool space = false;
+  //test
+  bool up = false;
+  bool down = false;
   
   // window.setView(camera.mainView);
 
@@ -52,6 +55,17 @@ int main()
       }
       else
 	space = false;
+      //testing buttons
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+	up = true;
+      }
+      else
+	up = false;
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+	down = true;
+      }
+      else
+	down = false;
       
 
       //handles events
@@ -68,21 +82,32 @@ int main()
       //*****if one frame completes
       if (clock.getElapsedTime() >= frameGap) {
 	//test*******erase later
-	std::cout << "Frame " << totalFrame << std::endl;
+	//std::cout << "Frame " << totalFrame << std::endl;
 	//timer reset
 	clock.restart();
 	totalFrame++;
 	
 	//key response
 	if (left == true)
-	  p.move(p.speed*-1,0);
-	if (right == true)
-	  p.move (p.speed,0);
+	  //p.move(p.speed*-1,0);
+	  p.dX = (p.speed*-1);
+	else if (right == true)
+	  p.dX = p.speed;
+	else
+	  p.dX = 0;
 	if (space == true)
 	  p.jump();
 
+	//testing buttons
+	if (up == true)
+	  p.move(0,-1);
+	//std::cout << "( " << p.x << ", " << p.y << " )" << std::endl;
+	if (down == true)
+	  p.move(0,1);
+	
 	//misc.
 	p.fall();
+	p.step();
 
 	//reset window
 	window.clear();

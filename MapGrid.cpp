@@ -30,14 +30,19 @@ void fill200() {
   blockSprite.setTexture(txtre);
   
  
-  for (int i=0; i<120; i++) {
+  for (int i=0; i<60; i++) {
     blockSprites[i][13] = blockSprite;
+  }
+  for (int i=60; i<120; i++) {
+    blockSprites[i][20] = blockSprite;
   }
   
   for (int i=0; i<120; i++) {
     for (int j=0; j<67; j++) {
-      blockSprites[i][j].setPosition(i*16, j*16);
-      window.draw(blockSprites[i][j]);
+      if (i!= 10) {
+	blockSprites[i][j].setPosition(i*16, j*16);
+	window.draw(blockSprites[i][j]);
+      }
     }
   }
   

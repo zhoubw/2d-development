@@ -3,7 +3,7 @@
 class Player {
 public: 
   int x, y;
-  int speed, jumpSpeed, dY;
+  int speed, jumpSpeed, dX, dY;
   int g;
   int width;
   int height;
@@ -19,5 +19,6 @@ public:
   void fall();
   void jump();
   bool grounded();
+  void step();
   Player(int,int);
 };
