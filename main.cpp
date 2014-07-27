@@ -10,7 +10,7 @@ sf::RenderWindow window(sf::VideoMode(w, h), "Title goes here");
 int main()
 {
   Camera camera;
-  Player p(0,0);
+  Player p(50,0);
   //window.create( sf::VideoMode(camera.dim_x, camera.dim_y, "Title goes here") );
   //sf::RenderWindow window(sf::VideoMode(camera.dim_x, camera.dim_y), "Title goes here");
 

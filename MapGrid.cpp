@@ -30,12 +30,17 @@ void fill200() {
   blockSprite.setTexture(txtre);
   
  
+  for (int i=0; i<120; i++) {
+    blockSprites[i][1] = blockSprite;
+  }
   for (int i=0; i<60; i++) {
     blockSprites[i][13] = blockSprite;
   }
   for (int i=60; i<120; i++) {
     blockSprites[i][20] = blockSprite;
   }
+
+  blockSprites[14][12] = blockSprite;
   
   for (int i=0; i<120; i++) {
     for (int j=0; j<67; j++) {
@@ -49,17 +54,10 @@ void fill200() {
  
 }
 
-//prints blockSprites
-/*
-void printBlockSprites() {
-  
-  for (int i=0; i<80; i++) {
-    for (int j=0; j<45; j++) {
-      std::cout << blockSprites[i][j].getTexture();
-    }
+bool isObstacle(int x, int y) {
+  //temporary measure
+  if (blockSprites[x][y].getTexture() == blockTexture) {
+    return true;
   }
-  std::cout << std::endl;
-  
+  return false;
 }
-*/
-

@@ -9,6 +9,10 @@ public:
   int height;
   int fallFrame;
   bool jumping;
+
+  int hp;
+  int maxHp;
+  int hpBar;
   
   sf::Texture texture;
   //temp
@@ -19,6 +23,9 @@ public:
   void fall();
   void jump();
   bool grounded();
+  bool capped();
+  bool blockedLeft();
+  bool blockedRight();
   void step();
   Player(int,int);
 };
