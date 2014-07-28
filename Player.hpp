@@ -2,6 +2,14 @@
 
 class Player {
 public: 
+  
+  int x1;
+  int x2;
+  int x3;
+  int y1;
+  int y2;
+  int y3;
+  
   int x, y;
   int speed, jumpSpeed, dX, dY;
   int g;

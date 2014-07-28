@@ -20,6 +20,7 @@ int totalFrame = 0;
 sf::Time frameGap = sf::milliseconds(1000/60);
 
 //pass some parameters at some point
+//one of them being map...?
 void gameLoop(sf::Clock clock, sf::Time frameGap) {
   //*****if one frame completes
   if (clock.getElapsedTime() >= frameGap) {
@@ -50,7 +51,7 @@ void gameLoop(sf::Clock clock, sf::Time frameGap) {
     window.setView(camera.mainView);
     //window.draw(p.currentSprite);
     window.draw(camera.map);
-    fill200();
+    drawMap();
     window.draw(p.shape); 
 	
     //display new stuff
@@ -98,7 +99,7 @@ int main()
 	  break;
 	}
       }
-
+      fill200();
       gameLoop(clock,frameGap);
 
     }

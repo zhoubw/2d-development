@@ -41,7 +41,9 @@ void fill200() {
   }
 
   blockSprites[14][12] = blockSprite;
-  
+}
+
+void drawMap() {
   for (int i=0; i<120; i++) {
     for (int j=0; j<67; j++) {
       if (i!= 10) {
@@ -50,8 +52,6 @@ void fill200() {
       }
     }
   }
-  
- 
 }
 
 bool isObstacle(int x, int y) {

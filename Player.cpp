@@ -11,6 +11,14 @@ Player::Player(int x_cor=1024/2, int y_cor=768/2) {
   this->x = x_cor;
   this->y = y_cor;
 
+  x1 = ((this->x-(this->width/2))-((this->x-(this->width/2)) % boxSize))/boxSize;
+  x2 = (this->x - (this->x % boxSize))/boxSize;
+  x3 = ((this->x+(this->width/2))-((this->x+(this->width/2)) % boxSize))/boxSize;
+  
+  y1 = ((this->y+(this->height/2))-((this->y+(this->height/2)) % boxSize))/boxSize;
+  y2 = (this->y - (this->y % boxSize))/boxSize;
+  y3 = ((this->y+(this->height/2))-((this->y+(this->height/2)) % boxSize))/boxSize;
+  
   g = 3; //acceleration of gravity
   speed = 7;
   jumpSpeed = 25;
@@ -117,22 +125,18 @@ bool Player::grounded() {
   //possible fix: check the point right on top of this one, it should not be in a block
 
   //convert the point on the block to the partition coordinate (starts right under feet of character)
-  int xBox = (this->x - (this->x % boxSize))/boxSize;
-  int yBox = ((this->y+(this->height/2))-((this->y+(this->height/2)) % boxSize))/boxSize;
-  //need to find a way to access the grid
-  //if (blockSprites[xBox][yBox] == &blockSprite) {
-  //return true;
-  //}
-  //std::cout << "conversion " <<  xBox << " " << yBox << std::endl;
-  return isObstacle(xBox, yBox);
+  x2 = (this->x - (this->x % boxSize))/boxSize;
+  y3  = ((this->y+(this->height/2))-((this->y+(this->height/2)) % boxSize))/boxSize;
+  
+  return isObstacle(x2, y3);
 }
 
 bool Player::capped() {
   //returns true if block is directly on top
 
-  int xBox = (this->x - (this->x % boxSize))/boxSize;
-  int yBox = ((this->y-(this->height/2))-((this->y-(this->height/2)) % boxSize))/boxSize;
-  return isObstacle(xBox, yBox);
+  x2 = (this->x - (this->x % boxSize))/boxSize;
+  y1 = ((this->y-(this->height/2))-((this->y-(this->height/2)) % boxSize))/boxSize;
+  return isObstacle(x2, y1);
 }
 
 
@@ -140,16 +144,16 @@ bool Player::capped() {
 
 
 bool Player::blockedLeft() {
-  int xBox = ((this->x-(this->width/2))-((this->x-(this->width/2)) % boxSize))/boxSize;
+  x1 = ((this->x-(this->width/2))-((this->x-(this->width/2)) % boxSize))/boxSize;
   //lower corner
-  int yBox = ((this->y+(this->height/2)-1)-((this->y+(this->height/2)-1) % boxSize))/boxSize;
-  return isObstacle(xBox, yBox);
+  y3 = ((this->y+(this->height/2)-1)-((this->y+(this->height/2)-1) % boxSize))/boxSize;
+  return isObstacle(x1, y3);
 }
 
 bool Player::blockedRight() {
-  int xBox = ((this->x+(this->width/2))-((this->x+(this->width/2)) % boxSize))/boxSize;
-  int yBox = ((this->y+(this->height/2)-1)-((this->y+(this->height/2)-1) % boxSize))/boxSize;
-  return isObstacle(xBox, yBox);
+  x3 = ((this->x+(this->width/2))-((this->x+(this->width/2)) % boxSize))/boxSize;
+  y3 = ((this->y+(this->height/2)-1)-((this->y+(this->height/2)-1) % boxSize))/boxSize;
+  return isObstacle(x3, y3);
 }
 
 //standard step per frame

@@ -19,5 +19,6 @@ extern sf::Sprite blockSprite;
 
 extern void fill200();
 
+extern void drawMap();
 //check if location at point is an obstacle block
 extern bool isObstacle(int x, int y);
