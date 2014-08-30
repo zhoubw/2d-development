@@ -29,10 +29,7 @@ void fill200() {
   txtre.loadFromFile("TestBlock.png");
   blockSprite.setTexture(txtre);
   
- 
-  for (int i=0; i<120; i++) {
-    blockSprites[i][1] = blockSprite;
-  }
+
   for (int i=0; i<60; i++) {
     blockSprites[i][13] = blockSprite;
   }
