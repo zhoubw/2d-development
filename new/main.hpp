@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include <math.h>
 #include "Player.hpp"
+#include "Projectile.hpp"
 
 extern b2Vec2 gravity;
 extern b2World world;

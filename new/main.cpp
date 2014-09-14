@@ -19,6 +19,7 @@ int main() {
   
   loadAllTextures();
   Player p(1280/2,720/2);
+  Projectile prj(1280/2, 100, 180.f);
   //gameloop
   while (window.isOpen()) {
     //handles events
@@ -58,7 +59,7 @@ int main() {
     window.clear(sf::Color::White);
 
     p.step(window);
-    
+    prj.step(window);
 
     window.display();
   }
