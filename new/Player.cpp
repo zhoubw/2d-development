@@ -25,8 +25,9 @@ Player::Player(int x, int y):Unit(x,y,playerSpeed,32.f,32.f) {
 }
 
 void Player::step(sf::RenderWindow& window) {
-  x = Body->GetPosition().x;
-  y = Body->GetPosition().y;
-  sprite.setPosition(SCALE*x,SCALE*y);
+  x = Body->GetPosition().x * SCALE;
+  y = Body->GetPosition().y * SCALE;
+  std::cout << x << " " << y << std::endl;
+  sprite.setPosition(x,y);
   window.draw(sprite);
 }

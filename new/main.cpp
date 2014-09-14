@@ -17,11 +17,10 @@ void loadAllTextures() {
 int main() {
   window.setFramerateLimit(60);
   
+  loadAllTextures();
   Player p(1280/2,720/2);
-  
   //gameloop
   while (window.isOpen()) {
-
     //handles events
     sf::Event event;
     while (window.pollEvent(event)) {
