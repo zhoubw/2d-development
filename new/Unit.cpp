@@ -1,6 +1,6 @@
 #include "Unit.hpp"
 
-Unit::Unit(int x, int y) {
+Unit::Unit(int x, int y, float speed, float width, float height) {
   this->x = x;
   this->y = y;
   this->width = width;

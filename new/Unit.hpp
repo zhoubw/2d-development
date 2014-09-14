@@ -15,7 +15,7 @@ public:
   float width;
   float height;
 
-  Unit(int x, int y);
+  Unit(int x, int y, float speed, float width, float height);
   
   b2BodyDef BodyDef;
   b2Body* Body;
@@ -23,4 +23,5 @@ public:
   b2FixtureDef FixtureDef;
 
   sf::Sprite sprite;
-}
+};
+#endif
