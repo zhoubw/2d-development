@@ -23,3 +23,10 @@ Player::Player(int x, int y):Unit(x,y,playerSpeed,32.f,32.f) {
   //sprite.setRotation(Body.GetAngle() * 180/b2_pi);
 
 }
+
+void Player::step(sf::RenderWindow window) {
+  x = Body.GetPosition().x;
+  y = Body.GetPosition().y;
+  sprite.setPosition(SCALE*x,SCALE*y);
+  window.draw(sprite);
+}

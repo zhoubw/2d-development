@@ -16,7 +16,9 @@ void loadAllTextures() {
 
 int main() {
   window.setFramerateLimit(60);
-
+  
+  Player p(1280/2,720/2);
+  
   //gameloop
   while (window.isOpen()) {
 
@@ -29,8 +31,35 @@ int main() {
 	break;
       }
     }
+
+    b2Vec2 playerVel = p.Body->GetLinearVelocity();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+      playerVel.x = -p.speed;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+      playerVel.x = p.speed;
+    }
+    else {
+      playerVel.x = 0;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+      playerVel.y = -p.speed;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+      playerVel.y = p.speed;
+    }
+    else {
+      playerVel.y = 0;
+    }
+    
+    p.Body->SetLinearVelocity(playerVel);
+
+
     world.Step(1/FPS, 8, 3);
     window.clear(sf::Color::White);
+
+    p.step(window);
+    
 
     window.display();
   }
