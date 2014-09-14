@@ -1,0 +1,12 @@
+1 - Projectile en-masse
+2 - Laser (inheritance)
+- 2.1 - Laser collection - linked to Projectiles
+- 2.2 - Sprite
+3 - Mirror
+- 3.1 - Reflection
+4 - Collision events
+5 - HP/LP??
+6 - GUI
+- 6.1 - HP/LP bar
+- 6.2 - Score
+- 

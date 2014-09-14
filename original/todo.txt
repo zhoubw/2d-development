@@ -1,0 +1,6 @@
+Needs
+
+- proper method to check if hitting a block
+- - divide the surface of the sprite in 3
+
+- MAIN MENU

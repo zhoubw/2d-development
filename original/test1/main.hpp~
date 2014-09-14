@@ -1,0 +1,32 @@
+#ifndef MAIN_HPP
+#define MAIN_HPP
+#include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
+#include "Player.hpp"
+#include "Mirror.hpp"
+#include "Projectile.hpp"
+#include "Laser.hpp"
+#include <list>
+
+extern sf::RenderWindow window;
+
+extern bool left;
+extern bool right;
+extern bool up;
+extern bool down;
+extern bool w;
+extern bool a;
+extern bool s;
+extern bool d;
+
+extern Player p;
+extern Mirror mirror;
+//extern Projectile prj;
+
+extern std::vector<Projectile*> Projectiles;
+
+
+extern const int width;
+extern const int height;
+void gameLoop();
+#endif

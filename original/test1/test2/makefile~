@@ -1,0 +1,2 @@
+g++ -c -I/usr/local/lib main.cpp
+g++ main.o -o sfml-app -L/usr/local/lib -lsfml-system -lsfml-graphics -lsfml-window -lBox2D

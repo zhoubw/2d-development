@@ -1,0 +1,22 @@
+0.5 - Fixed time step
+
+2 - Laser (inheritance)
+- 2.1 - Laser collection - linked to Projectiles
+- 2.2 - Sprite
+
+3 - Mirror
+- 3.1 - Reflection
+
+4 - Collision events
+- 4.1 - DESTRUCTORS!!
+
+5 - HP/LP??
+
+6 - GUI - NOT using Box2D (not physical objects)
+- 6.1 - HP/LP bar
+- 6.2 - Score
+
+7 - Game states
+- 7.1 - Title menu
+- 7.2 - Gameloop
+- 7.3 - End game

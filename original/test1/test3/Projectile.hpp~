@@ -1,0 +1,5 @@
+#ifndef PROJECTILE_HPP
+#define PROJECTILE_HPP
+#include <SFML/Graphics.hpp>
+#include <Box2D/Box2D/h>
+#include <iostream>
