@@ -11,7 +11,7 @@ public:
   unsigned int HPBar;
 
   Player(int x, int y);
-  void step(sf::RenderWindow window);
-}
+  void step(sf::RenderWindow& window);
+};
 
 #endif

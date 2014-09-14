@@ -1,4 +1,4 @@
-#include "Player.cpp"
+#include "Player.hpp"
 
 int playerSpeed = 3.f;
 
@@ -24,9 +24,9 @@ Player::Player(int x, int y):Unit(x,y,playerSpeed,32.f,32.f) {
 
 }
 
-void Player::step(sf::RenderWindow window) {
-  x = Body.GetPosition().x;
-  y = Body.GetPosition().y;
+void Player::step(sf::RenderWindow& window) {
+  x = Body->GetPosition().x;
+  y = Body->GetPosition().y;
   sprite.setPosition(SCALE*x,SCALE*y);
   window.draw(sprite);
 }
