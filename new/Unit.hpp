@@ -5,7 +5,6 @@
 #include <iostream>
 
 extern const float SCALE;
-extern sf::Texture playerTexture;
 extern b2World world;
 
 class Unit {

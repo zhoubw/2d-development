@@ -21,7 +21,7 @@ Laser::Laser(std::string source="laser.png", int width=10, int height=50, int x_
   this->speed=speed;
 
   isAlive=true;
-v
+
   sprite.setOrigin(width/2,height/2);
   //this->sprite.setPosition(x - width/2,y - height/2);
   sprite.setPosition(x,y);
