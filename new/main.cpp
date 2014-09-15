@@ -19,7 +19,8 @@ int main() {
   
   loadAllTextures();
   Player p(1280/2,720/2);
-  Projectile prj(1280/2, 100, 180.f);
+  Projectiles.push_back(new Projectile (1280/2, 100, 90.f));
+
   //gameloop
   while (window.isOpen()) {
     //handles events
@@ -58,8 +59,14 @@ int main() {
     world.Step(1/FPS, 8, 3);
     window.clear(sf::Color::White);
 
+    //player step
     p.step(window);
-    prj.step(window);
+
+    //projectiles step
+    //prj.step(window);
+    for (prjIterator=Projectiles.begin(); prjIterator!=Projectiles.end();++prjIterator) {
+      (*prjIterator)->step(window);
+    }
 
     window.display();
   }

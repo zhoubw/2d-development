@@ -10,6 +10,8 @@ Projectile::Projectile(int x, int y, float heading):Unit(x,y,projSpeed,12.f,11.f
   BodyDef.type = b2_kinematicBody;
   Body = world.CreateBody(&BodyDef);
   
+  Body->SetUserData(this);
+
   Shape.SetAsBox((width/2)/SCALE, (height/2)/SCALE);
   FixtureDef.density = 1.f;
   FixtureDef.friction = 0.7f;

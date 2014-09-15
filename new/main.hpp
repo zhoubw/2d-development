@@ -25,6 +25,9 @@ bool KEY_D;
 
 void gameLoop();
 
+std::vector<Projectile*> Projectiles;
+std::vector<Projectile*>::iterator prjIterator;
+
 //textures
 extern sf::Texture playerTexture;
 extern sf::Texture blueBulletTexture;
