@@ -3,6 +3,7 @@
 Unit::Unit(int x, int y, int heading, int HP, int range, int power) {
   this->x = x;
   this->y = y;
+  //might not even need to save this
   this->heading = heading;
   this->HP = HP;
   this->range = range;
