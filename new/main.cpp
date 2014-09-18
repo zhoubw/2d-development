@@ -68,6 +68,10 @@ int main() {
       (*prjIterator)->step(window);
     }
 
+    for (b2Body *b = world->GetBodyList(); b != NULL; b = b->GetNext()) {
+      
+    }
+
     window.display();
   }
 

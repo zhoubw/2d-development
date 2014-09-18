@@ -50,6 +50,10 @@ void gameLoop(sf::Clock clock, sf::Time frameGap) {
       window.display();
     }
   }
+} //end gameLoop()
+
+void loadAllTextures() {
+  defaultUnitTexture.loadFromFile("defaultTexture.png");
 }
 
 int main()
