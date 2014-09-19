@@ -18,12 +18,16 @@ public:
 
   int range;
   int power;
+
+  bool selected;
+  bool ready;
   
   sf::Sprite sprite;
-  
+  int spriteCounter;
+ 
   Unit(int x, int y, int heading, int HP, int range, int power);
   
-  void step();
+  void step(sf::RenderWindow& window);
   
 
 };
