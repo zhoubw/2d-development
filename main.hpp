@@ -10,7 +10,8 @@ extern sf::RenderWindow window;
 /*** Textures ***/
 extern sf::Texture defaultUnitTexture;
 
-
+//Shall I make a game class?
 void gameLoop();
 void loadAllTextures();
+
 #endif
