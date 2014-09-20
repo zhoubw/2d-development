@@ -4,14 +4,18 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include <iostream>
+#include "Unit.hpp"
+#include "Gui.hpp"
 
 extern sf::RenderWindow window;
 
 /*** Textures ***/
 extern sf::Texture defaultUnitTexture;
+extern sf::Texture HPRed;
+extern sf::Texture HPGreen;
 
-std::vector<Unit*> Units;
-std::vector<Unit*>::iterator unitIterator;
+extern std::vector<Unit*> Units;
+extern std::vector<Unit*>::iterator unitIterator;
 
 
 //Shall I make a game class?

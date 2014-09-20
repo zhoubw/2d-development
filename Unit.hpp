@@ -6,9 +6,12 @@
 #include <iostream>
 
 extern sf::Texture defaultUnitTexture;
+extern sf::Texture HPRed;
+extern sf::Texture HPGreen;
 
 class Unit {
 public:
+  sf::String name;
   int width, height;
   unsigned int HP;
   unsigned int HPBar;
@@ -23,12 +26,14 @@ public:
   bool ready;
   
   sf::Sprite sprite;
+  sf::Sprite HPRedBar;
+  sf::Sprite HPGreenBar;
+
   int spriteCounter;
  
-  Unit(int x, int y, int heading, int HP, int range, int power);
+  Unit(sf::String name,int x, int y, int heading, int HP, int range, int power);
   
   void step(sf::RenderWindow& window);
-  
 
 };
 
