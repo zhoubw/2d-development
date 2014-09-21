@@ -158,46 +158,46 @@ void Game::checkWin() {
     playing = false;
     gui.status = "Player 1's units have been annihilated. Player 2 wins.";
   }
-  else if (p2Units.empty()) {
+  if (p2Units.empty()) {
     playing = false;
     gui.status = "Player 2's units have been annihilated. Player 1 wins.";
   }
-  else { //I really screwed up here, I should have made 2d vectors but that would screw everything over. meh
-    if ((Tiles.at(0)->id==Tiles.at(1)->id&&Tiles.at(1)->id==Tiles.at(2)->id) ||
-	(Tiles.at(0)->id==Tiles.at(3)->id&&Tiles.at(3)->id==Tiles.at(6)->id)) {
-      if (Tiles.at(0)->id == 1) {
-	playing = false;
-	gui.status = "Player 1 captured 3 in a row. Player 1 wins.";
-      }
-      else if (Tiles.at(0)->id == 2){
-	playing = false;
-	gui.status = "Player 2 captured 3 in a row. Player 2 wins.";
-      }
-    } //012,036
-    else if ((Tiles.at(8)->id==Tiles.at(5)->id&&Tiles.at(5)->id==Tiles.at(2)->id) ||
-	(Tiles.at(8)->id==Tiles.at(7)->id&&Tiles.at(7)->id==Tiles.at(6)->id)) {
-      if (Tiles.at(8)->id == 1) {
-	playing = false;
-	gui.status = "Player 1 captured 3 in a row. Player 1 wins.";
-      }
-      else if (Tiles.at(8)->id == 2) {
-	playing = false;
-	gui.status = "Player 2 captured 3 in a row. Player 2 wins.";
-      }
-    } //876,852
-    else if (((Tiles.at(3)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(5)->id) ||
-	      (Tiles.at(1)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(7)->id)) ||
-	     ((Tiles.at(0)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(8)->id) ||
-	      (Tiles.at(2)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(6)->id))) {
-      if (Tiles.at(4)->id == 1) {
-	playing = false;
-	gui.status = "Player 1 captured 3 in a row. Player 1 wins.";
-      }
-      else if (Tiles.at(4)->id == 2) {
-	playing = false;
-	gui.status = "Player 2 captured 3 in a row. Player 2 wins.";
-      }
-    } //345, 147, 048, 246
+  //I really screwed up here, I should have made 2d vectors but that would screw everything over. meh
+  if ((Tiles.at(0)->id==Tiles.at(1)->id&&Tiles.at(1)->id==Tiles.at(2)->id) ||
+      (Tiles.at(0)->id==Tiles.at(3)->id&&Tiles.at(3)->id==Tiles.at(6)->id)) {
+    if (Tiles.at(0)->id == 1) {
+      playing = false;
+      gui.status = "Player 1 captured 3 in a row. Player 1 wins.";
+    }
+    else if (Tiles.at(0)->id == 2){
+      playing = false;
+      gui.status = "Player 2 captured 3 in a row. Player 2 wins.";
+    }
+  } //012,036
+  else if ((Tiles.at(8)->id==Tiles.at(5)->id&&Tiles.at(5)->id==Tiles.at(2)->id) ||
+	   (Tiles.at(8)->id==Tiles.at(7)->id&&Tiles.at(7)->id==Tiles.at(6)->id)) {
+    if (Tiles.at(8)->id == 1) {
+      playing = false;
+      gui.status = "Player 1 captured 3 in a row. Player 1 wins.";
+    }
+    else if (Tiles.at(8)->id == 2) {
+      playing = false;
+      gui.status = "Player 2 captured 3 in a row. Player 2 wins.";
+    }
+  } //876,852
+  else if (((Tiles.at(3)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(5)->id) ||
+	    (Tiles.at(1)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(7)->id)) ||
+	   ((Tiles.at(0)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(8)->id) ||
+	    (Tiles.at(2)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(6)->id))) {
+    if (Tiles.at(4)->id == 1) {
+      playing = false;
+      gui.status = "Player 1 captured 3 in a row. Player 1 wins.";
+    }
+    else if (Tiles.at(4)->id == 2) {
+      playing = false;
+      gui.status = "Player 2 captured 3 in a row. Player 2 wins.";
+    }
+  } //345, 147, 048, 246
     
-  }//end 3 checks
+    //}//end 3 checks
 }
