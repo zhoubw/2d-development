@@ -8,7 +8,8 @@
 extern sf::Texture defaultUnitTexture;
 extern sf::Texture HPRed;
 extern sf::Texture HPGreen;
-
+extern sf::Texture p1Texture;
+extern sf::Texture p2Texture;
 class Unit {
 public:
   sf::String name;
@@ -33,7 +34,7 @@ public:
   sf::Sprite HPRedBar;
   sf::Sprite HPGreenBar;
 
-  Unit(sf::String name,int x, int y, int heading, int HP, int moveRange,int attackRange, int power);
+  Unit(bool player, sf::String name,int x, int y, int heading, int HP, int moveRange,int attackRange, int power);
   
   void step(sf::RenderWindow& window);
   void move(int targetX, int targetY);

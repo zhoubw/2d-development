@@ -12,6 +12,7 @@ Game::Game() {
   currentTile = NULL;
   currentPhase = 0;
   currentPlayer = true;
+  illegalMove = false;
   playing = true;
 }
 
@@ -37,10 +38,13 @@ void Game::step() {
       }
       //selects the Unit for the turn
       if (gui.mousePressed) {
-	if (currentUnit == NULL) {
 	  currentUnit = gui.selectedUnit;
+	  if (currentUnit != NULL) {
+	    if (!currentUnit->ready) {
+	      currentUnit = NULL;
+	    }
+	  }
 	  currentTile = gui.selectedTile;
-	}
       }
       else {
 	if (currentUnit != NULL) {
@@ -50,23 +54,37 @@ void Game::step() {
       break;
   
     case 1:
-      gui.status = "Move unit to a valid destination.";
+      gui.status = "Move unit; skip your battle if you cross the box.";
       if (gui.mousePressed) {
 	if (checkValidMoveTarget()) {
 	  //move the unit and advance phase
 	  currentUnit->move(gui.mouseX, gui.mouseY);
+	}
+	else {
+	  //illegal move skips battle
+	  currentUnit->move(gui.mouseX, gui.mouseY);
+	  illegalMove = true;
 	}
 	//std::cout << sf::Mouse::isButtonPressed(sf::Mouse::Left) << std::endl;
       }
       else {
 	if (currentUnit->moved) {
 	  currentPhase++;
+	  if (illegalMove) {
+	    illegalMove = false;
+	    currentPhase++;
+	  }
 	  currentUnit->moved = false;
 	}
       }
       break;
     case 2:
-      gui.status = "Select a valid attack target for the current unit.";
+      gui.status = "Select attack target-click in range (skip w/Space)";
+      if (gui.spacePressed && !currentUnit->attacked) {
+	currentPhase++;
+	gui.spacePressed = false;
+      }
+
       if (gui.mousePressed) {
 	if (checkValidAttackTarget() != NULL && !currentUnit->attacked) {
 	  gui.selectedUnit = NULL;      
@@ -150,10 +168,9 @@ Unit* Game::checkValidAttackTarget() {
 }
 
 void Game::checkWin() {
-  std::cout << Tiles.at(1)->id << std::endl;
-  std::cout << Tiles.at(4)->id << std::endl;
-  std::cout << Tiles.at(7)->id << std::endl;
-
+  //std::cout << Tiles.at(1)->id << std::endl;
+  //std::cout << Tiles.at(4)->id << std::endl;
+  //std::cout << Tiles.at(7)->id << std::endl;
   if (p1Units.empty()) {
     playing = false;
     gui.status = "Player 1's units have been annihilated. Player 2 wins.";
@@ -174,7 +191,7 @@ void Game::checkWin() {
       gui.status = "Player 2 captured 3 in a row. Player 2 wins.";
     }
   } //012,036
-  else if ((Tiles.at(8)->id==Tiles.at(5)->id&&Tiles.at(5)->id==Tiles.at(2)->id) ||
+  if ((Tiles.at(8)->id==Tiles.at(5)->id&&Tiles.at(5)->id==Tiles.at(2)->id) ||
 	   (Tiles.at(8)->id==Tiles.at(7)->id&&Tiles.at(7)->id==Tiles.at(6)->id)) {
     if (Tiles.at(8)->id == 1) {
       playing = false;
@@ -185,7 +202,7 @@ void Game::checkWin() {
       gui.status = "Player 2 captured 3 in a row. Player 2 wins.";
     }
   } //876,852
-  else if (((Tiles.at(3)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(5)->id) ||
+  if (((Tiles.at(3)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(5)->id) ||
 	    (Tiles.at(1)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(7)->id)) ||
 	   ((Tiles.at(0)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(8)->id) ||
 	    (Tiles.at(2)->id==Tiles.at(4)->id&&Tiles.at(4)->id==Tiles.at(6)->id))) {

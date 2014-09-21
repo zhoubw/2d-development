@@ -10,6 +10,7 @@ Gui::Gui(sf::RenderWindow& window) {
   mouseX = sf::Mouse::getPosition(window).x;
   mouseY = sf::Mouse::getPosition(window).y;
   mousePressed = false;
+  spacePressed = false;
 
   hoveredUnit = NULL;
   selectedUnit = NULL;
@@ -44,7 +45,7 @@ Gui::Gui(sf::RenderWindow& window) {
   readyStringT.setString(readyString);
   readyStringT.setPosition(2,162);
 
-  rangeCircle.setOutlineThickness(2);
+  rangeCircle.setOutlineThickness(5);
   rangeCircle.setOutlineColor(sf::Color(0,255,255));
   rangeCircle.setFillColor(sf::Color::Transparent);
   rangeCircle.setOrigin(rangeCircle.getRadius(), rangeCircle.getRadius());

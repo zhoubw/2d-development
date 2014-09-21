@@ -1,6 +1,6 @@
 #include "Unit.hpp"
 
-Unit::Unit(sf::String name, int x, int y, int heading, int HP, int moveRange, int attackRange, int power) {
+Unit::Unit(bool player, sf::String name, int x, int y, int heading, int HP, int moveRange, int attackRange, int power) {
   this->name = name;
   this->x = x;
   this->y = y;
@@ -24,7 +24,13 @@ Unit::Unit(sf::String name, int x, int y, int heading, int HP, int moveRange, in
   HPBar = HP;
   maxHP = HP;
   
-  sprite.setTexture(defaultUnitTexture); //needs to be loaded!!
+  if (player) {
+    //sprite.setTexture(defaultUnitTexture); //needs to be loaded!!
+    sprite.setTexture(p1Texture);
+  }
+  else {
+    sprite.setTexture(p2Texture);
+  }
   sprite.setOrigin(width/2, height/2);
   sprite.setPosition(x, y);
 
@@ -82,3 +88,4 @@ void Unit::hit(Unit* unit) {
   }
   attacked = true;
 }
+

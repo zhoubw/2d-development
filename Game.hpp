@@ -26,7 +26,9 @@ public:
   Tile* currentTile;
   int currentPhase;
   bool currentPlayer; //true is 1, false is 2
+  bool illegalMove;
   bool playing;
+
   //Gui& gui;
   
   Game();

@@ -27,7 +27,7 @@ void Tile::step(sf::RenderWindow& window) {
     if (containedSpritesp1() == 0) { //goes to p2
       id = 2;
     }
-    else { //goes to p1
+    else if (containedSpritesp2() == 0) { //goes to p1
       id = 1;
     }
   }

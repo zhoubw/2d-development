@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-sf::RenderWindow window(sf::VideoMode(1280, 720), "Title goes here");
+sf::RenderWindow window(sf::VideoMode(1280, 720), "Subjugation v.0");
 Gui gui(window);
 Game game;
 
@@ -11,6 +11,8 @@ sf::Texture HPGreen;
 sf::Texture whiteTile;
 sf::Texture redTile;
 sf::Texture blueTile;
+sf::Texture p1Texture;
+sf::Texture p2Texture;
 
 //If game is running
 bool running = false;
@@ -24,22 +26,11 @@ void gameLoop(sf::Clock clock, sf::Time frameGap) {
 
   loadAllTextures();
   //push units
-  p1Units.push_back(new Unit(sf::String("Footman"),1280/2,1,90,100,100,500,0));
-  p2Units.push_back(new Unit(sf::String("Archer"),800, 720/2, 90, 200, 200,600, 800));
-  p2Units.push_back(new Unit(sf::String("Archer"),700, 360, 90, 200, 200,600, 800));
-  p2Units.push_back(new Unit(sf::String("Archer"),1200, 360, 90, 200, 200,600, 800));
- 
+  loadUnits();
+  
   //push tiles
-  Tiles.push_back(new Tile(634,119));
-  Tiles.push_back(new Tile(634,358));
-  Tiles.push_back(new Tile(634,597)); //239 difference
-  Tiles.push_back(new Tile(873,119));
-  Tiles.push_back(new Tile(873,358));
-  Tiles.push_back(new Tile(873,597)); //239 difference
-  Tiles.push_back(new Tile(1112,119));
-  Tiles.push_back(new Tile(1112,358));
-  Tiles.push_back(new Tile(1112,597)); //239 difference
-
+  loadTiles();
+ 
   while (running) {
     /******************v NECESSARY STUFF v*********************/
     sf::Event event;
@@ -48,6 +39,14 @@ void gameLoop(sf::Clock clock, sf::Time frameGap) {
       case sf::Event::Closed:
 	window.close();
 	break;
+      case sf::Event::KeyPressed:
+	if (event.key.code == sf::Keyboard::Space && game.currentPhase == 2) {
+	  gui.spacePressed = true;
+	}
+	//case sf::Event::KeyReleased:
+	//if (event.key.code == sf::Keyboard::Space) {
+	//gui.spacePressed = false;
+	//}
       case sf::Event::MouseButtonPressed:
 	if (event.mouseButton.button == sf::Mouse::Left) {
 	  gui.mousePressed = true;
@@ -75,17 +74,17 @@ void gameLoop(sf::Clock clock, sf::Time frameGap) {
 
       //kill off units
       //this is really cheap and a huge potential memory leak, but it works for this scale
-      for (unitIterator=p1Units.begin();unitIterator!=p1Units.end();++unitIterator) {
-	if ((*unitIterator)->HPBar == 0) {
-	  p1Units.erase(unitIterator);
+      for (int i=0;i<p1Units.size();i++) {
+	if (p1Units.at(i)->HPBar == 0) {
+	  p1Units.erase(p1Units.begin() + i);
 	}
       }
-      for (unitIterator=p2Units.begin();unitIterator!=p2Units.end();++unitIterator) {
-	if ((*unitIterator)->HPBar == 0) {
-	  p2Units.erase(unitIterator);
+      for (int i=0;i<p2Units.size();i++) {
+	if (p2Units.at(i)->HPBar == 0) {
+	  p2Units.erase(p2Units.begin() + i);
 	}
       }
-
+      
       //draws new stuff	
       //tiles first!!
       for (tileIterator=Tiles.begin();tileIterator!=Tiles.end();++tileIterator) {
@@ -117,6 +116,72 @@ void loadAllTextures() {
   whiteTile.loadFromFile("whiteTile.png");
   redTile.loadFromFile("redTile.png");
   blueTile.loadFromFile("blueTile.png");
+  p1Texture.loadFromFile("p1Texture.png");
+  p2Texture.loadFromFile("p2Texture.png");
+}
+
+void loadUnits() {
+  //all measurements are based on the first tile, top left corner
+
+  //row1 p1
+  p1Units.push_back(new Unit(true,sf::String("Footman"),570,55,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),698,55,90,100,100,35,60)); 
+  p1Units.push_back(new Unit(true,sf::String("Footman"),570+240,55,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),698+240,55,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),570+240*2,55,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),698+240*2,55,90,100,100,35,60));
+  
+  //row2 p1
+  p1Units.push_back(new Unit(true,sf::String("Footman"),570,55+240,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),698,55+240,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Archer"),873,55+240,90,100,100,200,40)); //single mid
+  p1Units.push_back(new Unit(true,sf::String("Footman"),570+240*2,55+240,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),698+240*2,55+240,90,100,100,35,60));
+  
+  //row3 p1
+  p1Units.push_back(new Unit(true,sf::String("Footman"),570,55+240*2,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),698,55+240*2,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),570+240,55+240*2,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),698+240,55+240*2,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),570+240*2,55+240*2,90,100,100,35,60));
+  p1Units.push_back(new Unit(true,sf::String("Footman"),698+240*2,55+240*2,90,100,100,35,60));
+  
+  //row1 p2
+  p2Units.push_back(new Unit(false,sf::String("Footman"),570,183,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),698,183,90,100,100,35,60)); 
+  p2Units.push_back(new Unit(false,sf::String("Footman"),570+240,183,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),698+240,183,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),570+240*2,183,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),698+240*2,183,90,100,100,35,60));
+  
+
+  //row2 p2
+  p2Units.push_back(new Unit(false,sf::String("Footman"),570,183+240,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),698,183+240,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Archer"),873,183+240,90,100,100,200,40)); //single mid
+  p2Units.push_back(new Unit(false,sf::String("Footman"),570+240*2,183+240,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),698+240*2,183+240,90,100,100,35,60));
+  
+  //row3 p2
+  p2Units.push_back(new Unit(false,sf::String("Footman"),570,183+240*2,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),698,183+240*2,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),570+240,183+240*2,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),698+240,183+240*2,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),570+240*2,183+240*2,90,100,100,35,60));
+  p2Units.push_back(new Unit(false,sf::String("Footman"),698+240*2,183+240*2,90,100,100,35,60));
+
+}
+
+void loadTiles() {
+ Tiles.push_back(new Tile(634,119));
+ Tiles.push_back(new Tile(634,358));
+ Tiles.push_back(new Tile(634,597)); //239 difference
+ Tiles.push_back(new Tile(873,119));
+ Tiles.push_back(new Tile(873,358));
+ Tiles.push_back(new Tile(873,597)); //239 difference
+ Tiles.push_back(new Tile(1112,119));
+ Tiles.push_back(new Tile(1112,358));
+ Tiles.push_back(new Tile(1112,597)); //239 difference
 }
 
 int main()

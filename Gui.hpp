@@ -23,6 +23,7 @@ class Gui {
 public:
   int mouseX, mouseY;
   bool mousePressed;
+  bool spacePressed;
   
   Unit* hoveredUnit;
   Unit* selectedUnit;

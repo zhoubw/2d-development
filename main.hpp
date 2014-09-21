@@ -20,6 +20,8 @@ extern sf::Texture HPGreen;
 extern sf::Texture whiteTile;
 extern sf::Texture redTile;
 extern sf::Texture blueTile;
+extern sf::Texture p1Texture;
+extern sf::Texture p2Texture;
 
 extern std::vector<Unit*> p1Units;
 extern std::vector<Unit*> p2Units;
@@ -30,5 +32,6 @@ extern std::vector<Tile*>::iterator tileIterator;
 //Shall I make a game class?
 void gameLoop();
 void loadAllTextures();
-
+void loadUnits();
+void loadTiles();
 #endif
