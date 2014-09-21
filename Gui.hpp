@@ -8,16 +8,25 @@
 #include <sstream>
 #include <string>
 #include "Unit.hpp"
+#include "Game.hpp"
+#include "Tile.hpp"
 
-extern std::vector<Unit*> Units;
+extern std::vector<Unit*> p1Units;
+extern std::vector<Unit*> p2Units;
 extern std::vector<Unit*>::iterator unitIterator;
+extern Game game;
+extern std::vector<Tile*> Tiles;
+extern std::vector<Tile*>::iterator tileIterator;
+
 
 class Gui {
 public:
   int mouseX, mouseY;
+  bool mousePressed;
   
   Unit* hoveredUnit;
   Unit* selectedUnit;
+  Tile* selectedTile;
 
   std::string status;
   std::string unitName;
@@ -43,9 +52,11 @@ public:
   void step(sf::RenderWindow& window);
   void drawTexts(sf::RenderWindow& window);
   void drawRangeCircle(sf::RenderWindow& window);
-  void checkMouse(sf::RenderWindow& window);
+  void checkMouse(sf::RenderWindow& window, std::vector<Unit*>& Units);
   bool mouseIsHovering(Unit* unit);
   bool isClickingUnit(Unit* unit);
+  bool mouseIsHovering(Tile* tile);
+  bool isClickingTile(Tile* tile);
   bool updateUnit();
   
 };

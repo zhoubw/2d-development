@@ -1,17 +1,21 @@
 #include "Unit.hpp"
 
-Unit::Unit(sf::String name, int x, int y, int heading, int HP, int range, int power) {
+Unit::Unit(sf::String name, int x, int y, int heading, int HP, int moveRange, int attackRange, int power) {
   this->name = name;
   this->x = x;
   this->y = y;
   //might not even need to save this
   this->heading = heading;
   this->HP = HP;
-  this->range = range;
+  this->moveRange = moveRange;
+  this->attackRange = attackRange;
   this->power = power;
   
   selected = false;
   ready = true;
+  moved = false;
+  attacked = false;
+  isAlive = true;
 
   //let's aim for this to be default
   width = 32;
@@ -31,12 +35,10 @@ Unit::Unit(sf::String name, int x, int y, int heading, int HP, int range, int po
   HPRedBar.setOrigin(64/2, 10/2);
   HPRedBar.setPosition(x, y-32);
   HPGreenBar.setTexture(HPGreen);
-  HPGreenBar.setOrigin(64/2, 10/2);  
-  HPGreenBar.setPosition(x, y-32);
+  //HPGreenBar.setOrigin(64/2, 10/2);  
+  HPGreenBar.setPosition(x-32, y-37);
 
-  //don't need this until much, much later
-  spriteCounter = 0;
-
+  
 }								   
 
 //may not need this either
@@ -47,12 +49,36 @@ void Unit::step(sf::RenderWindow& window) {
   else if (this->HPBar < HP) {
     HPBar++;
   }
+  if (HPBar <= 0) {
+    //remove - check both vectors
+  }
   HPRedBar.setPosition(x, y-32);
-  HPGreenBar.setPosition(x, y-32);
+  //HPGreenBar.setPosition(x, y-32);
+  HPGreenBar.setPosition(x-32, y-37);
   HPGreenBar.setScale(float(this->HPBar)/float(maxHP), 1);
 
+  //sprite.setPosition(x,y);
   window.draw(sprite);
   window.draw(HPRedBar);
   window.draw(HPGreenBar);
   
+}
+
+void Unit::move(int targetX, int targetY) {
+  //command to move to targeted position
+  this->x = targetX;
+  this->y = targetY;
+  sprite.setPosition(targetX, targetY);
+  moved = true;
+}
+
+void Unit::hit(Unit* unit) {
+  unit->HP -= this->power;
+  if (unit->HP < 0) {
+    unit->HP = 0;
+  }
+  if (unit->HP == 0) {
+    unit->isAlive = false;
+  }
+  attacked = true;
 }

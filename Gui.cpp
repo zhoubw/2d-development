@@ -9,9 +9,11 @@ std::string toString(int n) {
 Gui::Gui(sf::RenderWindow& window) {
   mouseX = sf::Mouse::getPosition(window).x;
   mouseY = sf::Mouse::getPosition(window).y;
+  mousePressed = false;
 
   hoveredUnit = NULL;
   selectedUnit = NULL;
+  selectedTile = NULL;
   status = "Testing phase";
   unitName = "None selected";
   positionString = "Position:";
@@ -42,8 +44,8 @@ Gui::Gui(sf::RenderWindow& window) {
   readyStringT.setString(readyString);
   readyStringT.setPosition(2,162);
 
-  rangeCircle.setOutlineThickness(1);
-  rangeCircle.setOutlineColor(sf::Color(0,0,255));
+  rangeCircle.setOutlineThickness(2);
+  rangeCircle.setOutlineColor(sf::Color(0,255,255));
   rangeCircle.setFillColor(sf::Color::Transparent);
   rangeCircle.setOrigin(rangeCircle.getRadius(), rangeCircle.getRadius());
   rangeCircle.setRadius(0);
@@ -56,8 +58,12 @@ void Gui::step(sf::RenderWindow& window) {
   //rechecks mouse position
   mouseX = sf::Mouse::getPosition(window).x;
   mouseY = sf::Mouse::getPosition(window).y;
-  checkMouse(window);
-  
+  if (game.currentPlayer) {
+    checkMouse(window, p1Units);
+  }
+  else {
+    checkMouse(window, p2Units);
+  }
   drawTexts(window);
   drawRangeCircle(window);
 }
@@ -83,13 +89,24 @@ void Gui::drawTexts(sf::RenderWindow& window) {
 
 void Gui::drawRangeCircle(sf::RenderWindow& window) {
   if (selectedUnit != NULL) {
-    rangeCircle.setRadius(selectedUnit->range);
+    if (game.currentPhase < 2) { // 2 is battle phase
+      rangeCircle.setRadius(selectedUnit->moveRange);
+    }
+    else {
+      rangeCircle.setRadius(selectedUnit->attackRange);
+    }
     rangeCircle.setOrigin(rangeCircle.getRadius(), rangeCircle.getRadius());
     rangeCircle.setPosition(selectedUnit->x, selectedUnit->y);
+
     window.draw(rangeCircle);
   }
   else if (hoveredUnit != NULL) {
-    rangeCircle.setRadius(hoveredUnit->range);
+    if (game.currentPhase < 2) { // 2 is battle phase
+      rangeCircle.setRadius(hoveredUnit->moveRange);
+    }
+    else {
+      rangeCircle.setRadius(hoveredUnit->attackRange);
+    }
     rangeCircle.setOrigin(rangeCircle.getRadius(), rangeCircle.getRadius());
     rangeCircle.setPosition(hoveredUnit->x, hoveredUnit->y);
 
@@ -97,7 +114,7 @@ void Gui::drawRangeCircle(sf::RenderWindow& window) {
   }
 }
 
-void Gui::checkMouse(sf::RenderWindow& window) {
+void Gui::checkMouse(sf::RenderWindow& window, std::vector<Unit*>& Units) {
   //checks if mouse is hovering over a unit
   for (unitIterator=Units.begin();unitIterator!=Units.end();++unitIterator) {
     if (mouseIsHovering((*unitIterator))) {
@@ -109,6 +126,12 @@ void Gui::checkMouse(sf::RenderWindow& window) {
       }
       if (isClickingUnit((*unitIterator))) {
 	selectedUnit = (*unitIterator);
+	for (tileIterator=Tiles.begin();tileIterator!=Tiles.end();++tileIterator) {
+	  if (isClickingTile((*tileIterator))) {
+	    selectedTile = (*tileIterator);
+	    //std::cout << selectedTile << std::endl;
+	  }
+	}
       }
       //break out of hovering
       break;
@@ -124,7 +147,7 @@ void Gui::checkMouse(sf::RenderWindow& window) {
   }
   if (hoveredUnit == NULL && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
     selectedUnit = NULL;
-    
+    selectedTile = NULL; //might not work
   } //end for loop
     /*
       std::cout << unitName << std::endl;
@@ -143,6 +166,12 @@ bool Gui::mouseIsHovering(Unit* unit) {
 }
 bool Gui::isClickingUnit(Unit* unit) {
   return mouseIsHovering(unit) && sf::Mouse::isButtonPressed(sf::Mouse::Left);
+}
+bool Gui::mouseIsHovering(Tile* tile) {
+  return (tile->sprites.at(tile->id).getGlobalBounds().contains(mouseX,mouseY));
+}
+bool Gui::isClickingTile(Tile* tile) {
+  return mouseIsHovering(tile) && sf::Mouse::isButtonPressed(sf::Mouse::Left);
 }
 
 bool Gui::updateUnit() {
@@ -171,7 +200,12 @@ bool Gui::updateUnit() {
       powerString = "Power: ";
       powerString.append(toString(selectedUnit->power));
       rangeString = "Range: ";
-      rangeString.append(toString(selectedUnit->range));
+      if (game.currentPhase < 2) {
+	rangeString.append(toString(selectedUnit->moveRange));
+      }
+      else {
+	rangeString.append(toString(selectedUnit->attackRange));
+      }
       readyString = "Ready? : ";
       if (selectedUnit->ready) {
 	readyString.append("YES");
@@ -194,7 +228,12 @@ bool Gui::updateUnit() {
       powerString = "Power: ";
       powerString.append(toString(hoveredUnit->power));
       rangeString = "Range: ";
-      rangeString.append(toString(hoveredUnit->range));
+      if (game.currentPhase < 2) {
+	rangeString.append(toString(hoveredUnit->moveRange));
+      }
+      else {
+	rangeString.append(toString(hoveredUnit->attackRange));
+      }
       readyString = "Ready? : ";
       if (hoveredUnit->ready) {
 	readyString.append("YES");
