@@ -22,4 +22,4 @@ Tile.o: Tile.cpp
 	$(CC) Tile.cpp
 
 clean:
-	rm -f *.o sfml-app
+	rm -f *.o sfml-app *~
